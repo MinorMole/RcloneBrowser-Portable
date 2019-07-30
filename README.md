@@ -4,7 +4,7 @@
 
 ## Introduction
 
-A portable launcher of [Rclone Browser](https://github.com/DinCahill/RcloneBrowser) for Windows that design with the end-user experience in mind.
+A portable launcher of [**Rclone Browser**](https://github.com/DinCahill/RcloneBrowser) for Windows that design with the end-user experience in mind.
 
 ## Features
 
@@ -17,7 +17,7 @@ A portable launcher of [Rclone Browser](https://github.com/DinCahill/RcloneBrows
 
 ## Requirement
 
-- [.NET Framework Runtime 4.7.2 or Higher](https://dotnet.microsoft.com/download/dotnet-framework/net472)
+- [**.NET Framework Runtime 4.7.2 or Higher**](https://dotnet.microsoft.com/download/dotnet-framework/net472)
 
 ## [Download](https://gitHub.com/MinorMole/RcloneBrowser-Portable/releases)
 
