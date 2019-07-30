@@ -6,7 +6,7 @@
 
 A portable launcher of [Rclone Browser](https://github.com/DinCahill/RcloneBrowser) for Windows that design with the end-user experience in mind.
 
-### Features:
+### Features
 
 - Ready to use everywhere you go, unlike pure Rclone Browser every time you move it to somewhere else you have to re-config the rclone.exe location.
 - Auto-update from the developer, will bring you the latest rclone and Rclone Browser for the most exceptional experience.
