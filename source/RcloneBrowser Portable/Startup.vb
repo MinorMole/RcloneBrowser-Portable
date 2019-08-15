@@ -8,6 +8,7 @@ Module Startup
     Dim Client As New Net.WebClient
     Dim UpdateStatus As Boolean = False
     Dim DeleteOldCount As Integer = 0
+    Dim Retry_Count As Integer = 0
 
     Sub Main()
 
@@ -25,7 +26,7 @@ Module Startup
         Try
             Client.CachePolicy = New Net.Cache.RequestCachePolicy(Net.Cache.RequestCacheLevel.NoCacheNoStore)
             Dim CheckVersion As String = Client.DownloadString("https://minormole.github.io/RcloneBrowser-Portable/update/version")
-            If Application.ProductVersion.Trim <> CheckVersion Then Update(True)
+            If CheckVersion.Contains(".") And Application.ProductVersion.Trim <> CheckVersion Then Update(True)
         Catch ex As Exception
         End Try
 
@@ -95,11 +96,17 @@ Quit:
 
         If ShowMsg Then MsgBox("A new version of RcloneBrowser Portable is avaliable!" + vbNewLine + vbNewLine + "We have to close RcloneBrowser and rclone to update" + vbNewLine + vbNewLine + "Click OK to update")
 
-        Try
-            My.Computer.Network.DownloadFile("https://minormole.github.io/RcloneBrowser-Portable/update/Release.zip", ".\Release.zip", vbNullString, vbNullString, True, 60000, True)
+RTY_DL: Try
+            My.Computer.Network.DownloadFile("https://minormole.github.io/RcloneBrowser-Portable/update/Release.zip", ".\Release.zip", vbNullString, vbNullString, True, 100000, True)
         Catch ex As Exception
-            MsgBox("Can't access to the update server, please try again later.")
-            GoTo Quit
+            Retry_Count = Retry_Count + 1
+            If Retry_Count > 10 Then
+                MsgBox("Can't access to the update server, please try again later.")
+                GoTo Quit
+            Else
+                Threading.Thread.Sleep(1000)
+                GoTo RTY_DL
+            End If
         End Try
 
         If My.Computer.FileSystem.DirectoryExists(".\tmp\") Then My.Computer.FileSystem.DeleteDirectory(".\tmp\", FileIO.DeleteDirectoryOption.DeleteAllContents)
