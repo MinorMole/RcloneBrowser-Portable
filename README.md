@@ -19,7 +19,7 @@ A portable launcher of [**Rclone Browser**](https://github.com/DinCahill/RcloneB
 
 - [**.NET Framework Runtime 4.7.2 or Higher**](https://dotnet.microsoft.com/download/dotnet-framework/net472)
 
-## [Download](https://gitHub.com/MinorMole/RcloneBrowser-Portable/releases)
+## [Download & Changelog](https://gitHub.com/MinorMole/RcloneBrowser-Portable/releases)
 
 ## [Usage](https://github.com/MinorMole/RcloneBrowser-Portable/wiki/RcloneBrowser-Guide)
 
