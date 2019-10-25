@@ -14,6 +14,8 @@ A portable launcher of [**Rclone Browser**](https://github.com/DinCahill/RcloneB
 - Optimized setting for Rclone Browser.
 - Detect multi-instance. (a common user-error of Rclone Browser)
 - Detect if your rclone.conf not encrypt and remind you to encrypt it.
+- Auto-install WinFsp for drive mounting feature of Rclone Browser.
+- Came with mpv for stream feature of Rclone Browser.
 
 ## Requirement
 
