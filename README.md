@@ -1,5 +1,4 @@
 [![GitHub release](https://img.shields.io/github/release/MinorMole/RcloneBrowser-Portable.svg)](https://gitHub.com/MinorMole/RcloneBrowser-Portable/releases)
-[![Github all releases](https://img.shields.io/github/downloads/MinorMole/RcloneBrowser-Portable/total.svg)](https://GitHub.com/MinorMole/RcloneBrowser-Portable/releases/)
 [![GitHub license](https://img.shields.io/github/license/MinorMole/RcloneBrowser-Portable.svg)](https://github.com/MinorMole/RcloneBrowser-Portable/blob/master/LICENSE)
 
 ## Introduction
