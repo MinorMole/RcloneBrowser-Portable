@@ -22,6 +22,8 @@ A portable launcher of [**Rclone Browser**](https://github.com/DinCahill/RcloneB
 
 ## [Download & Changelog](https://gitHub.com/MinorMole/RcloneBrowser-Portable/releases)
 
+⚠ **Some antivirus might detect this as a virus but it not a virus. In that case, you can add it to the exception. I too lazy to fix this, if you don't trust please don't download it.**
+
 ## [Usage](https://github.com/MinorMole/RcloneBrowser-Portable/wiki/RcloneBrowser-Guide)
 
 ## [Licence](https://github.com/MinorMole/RcloneLab/blob/master/LICENSE)
