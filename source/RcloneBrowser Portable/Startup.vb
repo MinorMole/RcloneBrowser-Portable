@@ -25,7 +25,7 @@ Module Startup
         '' Check update
         Try
             Client.CachePolicy = New Net.Cache.RequestCachePolicy(Net.Cache.RequestCacheLevel.NoCacheNoStore)
-            Dim CheckVersion As String = Client.DownloadString("https://minormole.github.io/RcloneBrowser-Portable/update/version")
+            Dim CheckVersion As String = Client.DownloadString("https://download.konayuki.moe/RcloneBrowser-Portable/Version")
             If CheckVersion.Contains(".") And Application.ProductVersion.Trim <> CheckVersion Then Update(True)
         Catch ex As Exception
         End Try
@@ -34,6 +34,21 @@ Module Startup
         If Not My.Computer.FileSystem.FileExists(".\RcloneBrowser\RcloneBrowser.exe") Or Not My.Computer.FileSystem.FileExists(".\RcloneBrowser\rclone.exe") Then Update(False)
 
         If UpdateStatus = True Then GoTo Quit
+
+        '' Install WinFsp for RcloneBrowser Mounting Feature
+        If Not My.Computer.FileSystem.DirectoryExists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\WinFsp") And Not My.Computer.FileSystem.DirectoryExists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\WinFsp") Then
+            Dim WinFsp As New ProcessStartInfo()
+            WinFsp.WorkingDirectory = Application.StartupPath
+            WinFsp.CreateNoWindow = True
+            WinFsp.WindowStyle = ProcessWindowStyle.Hidden
+            WinFsp.Verb = "runas"
+            WinFsp.FileName = "cmd.exe"
+            WinFsp.Arguments = "/c msiexec /i " + Chr(34) + Application.StartupPath + "\RcloneBrowser\redists\WinFsp.msi" + Chr(34) + " INSTALLLEVEL=1000 /quiet /qn /norestart"
+            Try
+                Process.Start(WinFsp)
+            Catch ex As Exception
+            End Try
+        End If
 
         '' Check if rclone.conf exists
         If Not My.Computer.FileSystem.FileExists(".\RcloneBrowser\rclone.conf") Then
@@ -63,6 +78,64 @@ Module Startup
             Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Transfer", "checkVerbose", "true")
         End If
 
+        '' Set Default Stream Command
+        Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "stream", ".\RcloneBrowser\redists\mpv.exe - --title=" + Chr(34) + "$file_name" + Chr(34))
+        Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "streamConfirmed", "true")
+
+        '' Set Default Stream Command (Reverse)
+        Dim ReadMountValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "mount", Nothing)
+        If ReadMountValue = "--vfs-cache-mode writes --fast-list" Then
+            Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "mount", "--vfs-cache-mode writes")
+        End If
+
+        '' Set Default Rclone Options
+        Dim ReadRcloneOptions = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "defaultRcloneOptions", Nothing)
+        If ReadRcloneOptions = Nothing Or ReadRcloneOptions = "--fast-list" Then
+            Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "defaultRcloneOptions", "")
+        End If
+
+        '' Disable Auto Update of Rclone Browser
+        Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "checkRcloneBrowserUpdates", "false")
+        Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "checkRcloneUpdates", "false")
+
+        '' Set Default Style
+        Dim ReadiconsLayoutValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "iconsLayout", Nothing)
+        If ReadiconsLayoutValue = Nothing Then
+            Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "iconsLayout", "longlist")
+        End If
+        Dim ReadiconSizeValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "iconSize", Nothing)
+        If ReadiconsLayoutValue = Nothing Then
+            Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "iconSize", "S")
+        End If
+        Dim ReadbuttonSizeValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "buttonSize", Nothing)
+        If ReadbuttonSizeValue = Nothing Then
+            Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "buttonSize", "0")
+        End If
+        Dim ReadfontSizeValue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "fontSize", Nothing)
+        If ReadfontSizeValue = Nothing Then
+            Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "fontSize", "0")
+        End If
+        Dim ReadiconsColour = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "iconsColour", Nothing)
+        If ReadiconsColour = Nothing Then
+            Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "iconsColour", "black")
+        End If
+        Dim ReaddarkMode = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "darkMode", Nothing)
+        If ReaddarkMode = Nothing Then
+            Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "darkMode", "false")
+        End If
+        Dim ReaddarkModeIni = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "darkModeIni", Nothing)
+        If ReaddarkModeIni = Nothing Then
+            Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "darkModeIni", "false")
+        End If
+        Dim ReadbuttonSize = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "buttonSize", Nothing)
+        If ReadbuttonSize = Nothing Then
+            Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "buttonSize", "0")
+        End If
+        Dim ReadbuttonStyle = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "buttonStyle", Nothing)
+        If ReadbuttonStyle = Nothing Then
+            Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "buttonStyle", "textandicon")
+        End If
+
         '' Start RcloneBrowser
         If Process.GetProcessesByName("RcloneBrowser").Count = 0 Then
             Process.Start(".\RcloneBrowser\RcloneBrowser.exe")
@@ -71,19 +144,12 @@ Module Startup
             Catch ex As Exception
             End Try
         Else
-            Dim Result As Integer = MessageBox.Show("You already have RcloneBrowser running" + vbNewLine + vbNewLine + "Do you want to run another instance?", "RcloneBrowser is running", MessageBoxButtons.YesNo)
-            If Result = DialogResult.No Then
-                Try
-                    AppActivate("Rclone Browser")
-                Catch ex As Exception
-                End Try
-            ElseIf Result = DialogResult.Yes Then
-                Process.Start(".\RcloneBrowser\RcloneBrowser.exe")
-                Try
-                    AppActivate("Rclone Browser")
-                Catch ex As Exception
-                End Try
-            End If
+            Try
+                AppActivate("Rclone Browser")
+            Catch ex As Exception
+            End Try
+            Process.Start(".\RcloneBrowser\RcloneBrowser.exe")
+
         End If
 
 Quit:
@@ -97,7 +163,7 @@ Quit:
         If ShowMsg Then MsgBox("A new version of RcloneBrowser Portable is avaliable!" + vbNewLine + vbNewLine + "We have to close RcloneBrowser and rclone to update" + vbNewLine + vbNewLine + "Click OK to update")
 
 RTY_DL: Try
-            My.Computer.Network.DownloadFile("https://minormole.github.io/RcloneBrowser-Portable/update/Release.zip", ".\Release.zip", vbNullString, vbNullString, True, 100000, True)
+            My.Computer.Network.DownloadFile("https://download.konayuki.moe/RcloneBrowser-Portable/Release.zip", ".\Release.zip", vbNullString, vbNullString, True, 100000, True)
         Catch ex As Exception
             Retry_Count = Retry_Count + 1
             If Retry_Count > 10 Then
