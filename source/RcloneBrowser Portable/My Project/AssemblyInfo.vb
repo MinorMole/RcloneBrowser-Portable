@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("Portable and easy to use version of RcloneBrowser.")>
 <Assembly: AssemblyCompany("MinorMole")>
 <Assembly: AssemblyProduct("RcloneBrowser Portable")>
-<Assembly: AssemblyCopyright("Copyright © MinorMole 2020")>
+<Assembly: AssemblyCopyright("Copyright © MinorMole 2021")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("2.0.0.8")>
-<Assembly: AssemblyFileVersion("2.0.0.8")>
+<Assembly: AssemblyVersion("2.0.0.9")>
+<Assembly: AssemblyFileVersion("2.0.0.9")>
