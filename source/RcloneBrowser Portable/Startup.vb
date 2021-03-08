@@ -55,10 +55,10 @@ Module Startup
             File.Create(".\RcloneBrowser\rclone.conf").Dispose()
             MsgBox("Seem like you're using RcloneBrowser for the first time." + vbNewLine + vbNewLine + "Just let you know, rclone.conf is located at..." + vbNewLine + vbNewLine + Application.StartupPath + "\RcloneBrowser\rclone.conf")
             Process.Start("https://github.com/MinorMole/RcloneBrowser-Portable/wiki/RcloneBrowser-Guide")
-        Else
+            'Else
             '' Check if rclone.conf encrypt or not
-            Dim RcloneConf As String = My.Computer.FileSystem.ReadAllText(".\RcloneBrowser\rclone.conf")
-            If RcloneConf.Length.ToString <> 0 And Not RcloneConf.Contains("Encrypted rclone configuration File") And Not RcloneConf.Contains("RCLONE_ENCRYPT") Then MsgBox("Seem like you haven't created a password for RcloneBrowser!" + vbNewLine + vbNewLine + "To set a new password goto Config > Set configuration password")
+            'Dim RcloneConf As String = My.Computer.FileSystem.ReadAllText(".\RcloneBrowser\rclone.conf")
+            'If RcloneConf.Length.ToString <> 0 And Not RcloneConf.Contains("Encrypted rclone configuration File") And Not RcloneConf.Contains("RCLONE_ENCRYPT") Then MsgBox("Seem like you haven't created a password for RcloneBrowser!" + vbNewLine + vbNewLine + "To set a new password goto Config > Set configuration password")
         End If
 
         '' Check if the registry are correct
