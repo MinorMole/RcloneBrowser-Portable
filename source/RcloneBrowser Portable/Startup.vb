@@ -7,6 +7,7 @@ Module Startup
 
     Dim Client As New Net.WebClient
     Dim UpdateStatus As Boolean = False
+    Dim RcloneUpdater = CreateObject("wscript.shell")
     Dim DeleteOldCount As Integer = 0
     Dim Retry_Count As Integer = 0
 
@@ -136,6 +137,9 @@ Module Startup
             Registry.SetValue("HKEY_CURRENT_USER\Software\rclone-browser\rclone-browser\Settings", "buttonStyle", "textandicon")
         End If
 
+        '' Update Rclone
+        RcloneUpdater.run("""" + Application.StartupPath + "\RcloneBrowser\rclone.exe"" selfupdate --stable", 0, True)
+
         '' Start RcloneBrowser
         If Process.GetProcessesByName("RcloneBrowser").Count = 0 Then
             Process.Start(".\RcloneBrowser\RcloneBrowser.exe")
@@ -149,7 +153,6 @@ Module Startup
             Catch ex As Exception
             End Try
             Process.Start(".\RcloneBrowser\RcloneBrowser.exe")
-
         End If
 
 Quit:
