@@ -138,7 +138,7 @@ Module Startup
         End If
 
         '' Update Rclone
-        RcloneUpdater.run("""" + Application.StartupPath + "\RcloneBrowser\rclone.exe"" selfupdate --stable", 0, True)
+        RcloneUpdater.run("""" + Application.StartupPath + "\RcloneBrowser\rclone.exe"" --config """ + Application.StartupPath + "\RcloneBrowser\blank.conf"" selfupdate --stable", 0, True)
 
         '' Start RcloneBrowser
         If Process.GetProcessesByName("RcloneBrowser").Count = 0 Then
